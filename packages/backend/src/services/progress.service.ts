@@ -205,14 +205,11 @@ export async function saveKnowledgeCheckResults(
   moduleSlug: string,
   answers: { question_id: string; selected_answer: string; is_correct: boolean }[]
 ): Promise<{ courseCompleted: boolean; alreadyCompleted?: boolean }> {
-  // Guard: if results already exist, don't re-submit
-  const existing = await pool.query(
-    'SELECT 1 FROM knowledge_check_results WHERE user_id = $1 AND course_slug = $2 AND module_slug = $3 LIMIT 1',
+  // Delete any existing results so retakes always store the most recent attempt
+  await pool.query(
+    'DELETE FROM knowledge_check_results WHERE user_id = $1 AND course_slug = $2 AND module_slug = $3',
     [userId, courseSlug, moduleSlug]
   );
-  if (existing.rows.length > 0) {
-    return { courseCompleted: false, alreadyCompleted: true };
-  }
 
   // Insert results
   for (const answer of answers) {

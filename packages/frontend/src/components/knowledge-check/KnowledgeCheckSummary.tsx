@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
-import { BookOpen, ArrowRight, Trophy, Eye } from 'lucide-react';
+import { BookOpen, ArrowRight, Trophy, Eye, RotateCcw } from 'lucide-react';
 import { springBounce, fadeInUp, stagger } from '../../lib/animations';
 import type { KnowledgeCheckResult } from '@playbook/shared';
 
@@ -12,6 +12,7 @@ interface Props {
   courseCompleted?: boolean;
   questionLabels: { id: string; lessonLink?: string; lessonLinkLabel?: string; questionText: string }[];
   onReviewAnswers?: () => void;
+  onRetake?: () => void;
 }
 
 function ScoreRing({ score }: { score: number }) {
@@ -49,7 +50,7 @@ function ScoreRing({ score }: { score: number }) {
   );
 }
 
-export default function KnowledgeCheckSummary({ result, moduleSlug, nextModuleSlug, nextModuleFirstLessonSlug, courseCompleted, questionLabels, onReviewAnswers }: Props) {
+export default function KnowledgeCheckSummary({ result, moduleSlug, nextModuleSlug, nextModuleFirstLessonSlug, courseCompleted, questionLabels, onReviewAnswers, onRetake }: Props) {
   const { slug } = useParams<{ slug: string }>();
   const missed = result.results.filter((r) => !r.correct);
 
@@ -107,16 +108,27 @@ export default function KnowledgeCheckSummary({ result, moduleSlug, nextModuleSl
         </motion.div>
       )}
 
-      {/* Review answers button */}
-      {onReviewAnswers && (
-        <div className="flex justify-center mb-4">
-          <button
-            onClick={onReviewAnswers}
-            className="flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-text-secondary border border-border rounded-button hover:text-primary hover:border-primary transition-colors"
-          >
-            <Eye size={16} />
-            Review Answers
-          </button>
+      {/* Secondary action buttons: Review & Retake */}
+      {(onReviewAnswers || onRetake) && (
+        <div className="flex justify-center gap-3 mb-4">
+          {onReviewAnswers && (
+            <button
+              onClick={onReviewAnswers}
+              className="flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-text-secondary border border-border rounded-button hover:text-primary hover:border-primary transition-colors"
+            >
+              <Eye size={16} />
+              Review Answers
+            </button>
+          )}
+          {onRetake && (
+            <button
+              onClick={onRetake}
+              className="flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-text-secondary border border-border rounded-button hover:text-primary hover:border-primary transition-colors"
+            >
+              <RotateCcw size={16} />
+              Retake the Test
+            </button>
+          )}
         </div>
       )}
 

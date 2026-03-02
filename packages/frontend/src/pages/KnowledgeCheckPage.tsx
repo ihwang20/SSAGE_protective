@@ -218,6 +218,15 @@ export default function KnowledgeCheckPage() {
     setMode('review');
   }, []);
 
+  // Handle "Retake the Test" — reset all state to start fresh
+  const handleRetake = useCallback(() => {
+    setAnswers({});
+    setFeedbacks({});
+    setCurrentIndex(0);
+    submittedRef.current = false;
+    setMode('active');
+  }, []);
+
   // Find next module info
   const nextModule = useMemo(() => {
     if (!navTree || !moduleSlug) return undefined;
@@ -317,6 +326,7 @@ export default function KnowledgeCheckPage() {
                 questionText: q.question,
               }))}
               onReviewAnswers={handleReviewAnswers}
+              onRetake={handleRetake}
             />
           ) : currentQuestion ? (
             <QuestionCard
