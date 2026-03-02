@@ -13,6 +13,8 @@ With opportunities prioritized and a roadmap in hand, the process moves from dia
 
 The transition from opportunity to solution requires a fundamental shift in thinking. During diagnosis, the practitioner asks "What is wrong and why?" During tool development, the question becomes "What AI-powered solution best addresses this validated gap?"
 
+<IterativeCycleDiagram />
+
 <Callout type="concept" title="AI First Design">
 Solutions are designed AI First. Rather than automating an existing manual process step-by-step, AI First design asks: "If we were building this capability from scratch with full access to AI, what would it look like?" This approach often yields solutions that are fundamentally different from — and dramatically more effective than — incremental automation of legacy processes.
 </Callout>
@@ -27,6 +29,8 @@ AI solutions fall into three categories, each with different levels of autonomy 
   { title: "Automation Solutions", description: "Rule-based or AI-enhanced systems that handle repetitive, well-defined tasks without human intervention. Example: Automated scheduling confirmations and reminder messages triggered by dispatch assignments." }
 ]} />
 
+
+
 ## Selecting the Right Solution Type
 
 The choice between agentic, assistive, and automation depends on three factors:
@@ -36,6 +40,10 @@ The choice between agentic, assistive, and automation depends on three factors:
 | Decision complexity | Low-medium, well-defined rules | High, requires judgment | Low, deterministic |
 | Error tolerance | Errors are recoverable and low-cost | Errors are costly or visible | Errors are rare with clear rules |
 | Speed requirement | Real-time decisions needed | Human review time is acceptable | Batch processing is sufficient |
+
+<Callout type="warning" title="Engage IT and Security Early">
+Before committing to a solution type, involve your organization's IT and Information Security teams. Agentic solutions raise questions about access controls, data exposure, and auditability. Assistive solutions require integration with existing workflows and systems. Even simple automation may need security review if it touches customer data or production environments. Bringing IT and Security in during solution design — not after — prevents costly rework and accelerates deployment approvals.
+</Callout>
 
 <Callout type="tip" title="Metro Cable Dispatch Example">
 For Metro Cable, the dispatch optimization opportunity was designed as an assistive solution for the initial deployment — the AI recommends dispatch assignments, but coordinators review and approve them. This builds trust, generates training data for the AI model, and provides a transition path toward a fully agentic solution once accuracy thresholds are proven.

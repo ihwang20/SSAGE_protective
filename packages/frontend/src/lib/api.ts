@@ -9,6 +9,8 @@ import type {
   CourseProgress,
   HeartbeatPayload,
   KnowledgeCheckSubmission,
+  KnowledgeCheckDraftPayload,
+  KnowledgeCheckAnswersResponse,
   DashboardMetrics,
   UserWithProgress,
   UserDetail,
@@ -39,6 +41,17 @@ async function fetchApi<T>(endpoint: string, options?: RequestInit): Promise<T> 
 }
 
 export const api = {
+  // Health (does not throw on 503 — DB down is a valid response)
+  getHealth: async (): Promise<{ reachable: true; db: boolean } | { reachable: false }> => {
+    try {
+      const res = await fetch(`${BASE_URL}/health`, { credentials: 'include' });
+      const json = await res.json();
+      return { reachable: true, db: json.data?.db ?? false };
+    } catch {
+      return { reachable: false };
+    }
+  },
+
   // Theme
   getTheme: () => fetchApi<ThemeConfig>('/themes/active'),
   getThemes: () => fetchApi<ThemeConfig[]>('/themes'),
@@ -87,10 +100,17 @@ export const api = {
       body: JSON.stringify({ module_slug: moduleSlug }),
     }),
   submitKnowledgeCheck: (courseSlug: string, moduleSlug: string, submission: KnowledgeCheckSubmission) =>
-    fetchApi<{ courseCompleted: boolean }>(`/progress/${courseSlug}/modules/${moduleSlug}/check`, {
+    fetchApi<{ courseCompleted: boolean; alreadyCompleted?: boolean }>(`/progress/${courseSlug}/modules/${moduleSlug}/check`, {
       method: 'POST',
       body: JSON.stringify(submission),
     }),
+  saveKnowledgeCheckDraft: (courseSlug: string, moduleSlug: string, draft: KnowledgeCheckDraftPayload) =>
+    fetchApi<{ ok: boolean }>(`/progress/${courseSlug}/modules/${moduleSlug}/check/draft`, {
+      method: 'POST',
+      body: JSON.stringify(draft),
+    }),
+  getKnowledgeCheckAnswers: (courseSlug: string, moduleSlug: string) =>
+    fetchApi<KnowledgeCheckAnswersResponse>(`/progress/${courseSlug}/modules/${moduleSlug}/check/answers`),
 
   // Admin — Dashboard
   getAdminDashboard: (userIds?: string[]) => {

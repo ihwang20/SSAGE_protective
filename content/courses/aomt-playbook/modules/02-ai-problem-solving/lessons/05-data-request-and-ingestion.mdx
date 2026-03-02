@@ -7,22 +7,39 @@ order: 5
 
 # Data Request & Ingestion
 
-Once the Issues Tree and initial hypotheses are established, the practitioner must formally request and ingest the data needed to test them. This step bridges the gap between analytical planning and actual analysis.
+Once the Issues Tree and initial hypotheses are established, the practitioner must request and ingest the data needed to test them. This step bridges the gap between analytical planning and actual analysis. In practice, data requests happen in two stages: a preliminary request to scope what's available, followed by a formal request that specifies exactly what's needed.
+
+## Preliminary Data Request
+
+Before drafting a detailed request, send a preliminary data request to understand what data exists, where it lives, and how accessible it is. This prevents wasted effort on formally requesting data that turns out to be unavailable or in an unusable format.
+
+<DataRequestRefinement />
+
+A preliminary request should cover:
+
+- **Data Landscape** — What systems and datasets relate to the problem area?
+- **Availability** — Is the data accessible, or are there permissions, compliance, or technical barriers?
+- **Quality Indicators** — How complete and reliable is the data? Are there known gaps or issues?
+- **Point of Contact** — Who owns the data, and who can authorize access?
+
+<Callout type="concept" title="Metro Cable Example">
+For the Metro Cable engagement, the preliminary request asked the client to inventory all data sources related to field service operations. This surfaced 14 months of dispatch records (350,000+ rows), customer satisfaction survey results, technician certification databases, and geographic service area maps. Several additional datasets (e.g., parts inventory logs) were identified but deprioritized due to access restrictions. This early scoping shaped the formal request that followed.
+</Callout>
+
+
 
 ## The Formal Data Request
 
-A data request should be specific, structured, and traceable back to the Issues Tree. Each request should include:
+Once the data landscape is understood, the formal data request should be specific, structured, and traceable back to the Issues Tree. Each request should include:
 
 - **Data Description** — What specific data is needed (e.g., "dispatch records for the past 12 months including technician ID, job type, travel time, and resolution outcome")
-- **Source System** — Where does this data reside? Identify the system of record.
+- **Source System** — Where does this data reside? Identify the <GlossaryTerm term="System of Record">system of record</GlossaryTerm>.
 - **Format Requirements** — Preferred file format, schema expectations, and any transformation needs
 - **Time Period** — The date range required for the analysis
 - **Granularity** — The level of detail needed (e.g., daily vs. monthly, individual vs. aggregated)
 - **Issues Tree Mapping** — Which branch or hypothesis does this data support?
 
-<Callout type="concept" title="Metro Cable Example">
-For the Metro Cable engagement, the initial data request included 14 months of dispatch records (350,000+ rows), customer satisfaction survey results, technician certification databases, and geographic service area maps. This broad initial request was intentional — casting a wide net in the first iteration enables AI to surface unexpected patterns.
-</Callout>
+<FormalDataRequest />
 
 ## Data Ingestion Best Practices
 
@@ -33,13 +50,21 @@ Once data is received, ingestion involves loading it into the AI analysis enviro
 3. **Establish a baseline** — Create initial descriptive statistics that serve as reference points for analysis
 4. **Document limitations** — Record known data quality issues, gaps, or caveats
 
+<DataRequestRisks />
+
 <Callout type="tip" title="More Data Is Better">
 In AI-Enabled Problem Solving, the bias should always be toward requesting more data rather than less. AI tools can process large volumes efficiently, and datasets that seem peripheral often contain unexpected insights. The cost of ingesting extra data is minimal compared to the cost of missing a critical pattern because the data was never requested.
 </Callout>
 
-<Callout type="warning" title="Data Governance">
-Always follow your organization's data governance policies when requesting and handling data. Ensure appropriate access permissions, anonymization requirements, and retention policies are observed throughout the engagement.
-</Callout>
+## Data Governance
+
+Data governance is not a checkbox — it must be woven into every stage of the data request and ingestion process. The practitioner is responsible for ensuring compliance with organizational policies and applicable regulations.
+
+- **Access Permissions** — Confirm that every team member who will touch the data has been granted appropriate access. Document who has access and at what level (read-only, edit, admin). Revoke access when no longer needed.
+- **Anonymization and PII** — Identify any personally identifiable information (PII) in the dataset. Work with the data owner to anonymize or pseudonymize sensitive fields before ingestion. Never store raw PII in analysis environments unless explicitly authorized.
+- **Retention and Disposal** — Agree on how long the data will be retained for the engagement and what happens to it afterward. Define clear disposal procedures — delete working copies, purge temporary files, and confirm deletion with the data owner.
+- **Regulatory Compliance** — Determine which regulations apply (e.g., GDPR, HIPAA, SOX, industry-specific standards). Ensure your data handling, storage, and processing practices meet these requirements. When in doubt, consult your organization's legal or compliance team.
+- **Audit Trail** — Maintain a log of what data was requested, when it was received, who accessed it, and any transformations applied. This trail supports reproducibility and demonstrates compliance if the engagement is ever reviewed.
 
 <DecisionPoint
   scenario="You're starting a new engagement. The client offers two data options: (A) a clean, curated dataset covering 3 months of operations, or (B) a raw, uncleaned dataset covering 18 months with known quality issues. Which do you choose?"

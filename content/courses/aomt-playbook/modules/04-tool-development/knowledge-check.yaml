@@ -1,5 +1,5 @@
 title: "Module 4 Knowledge Check"
-description: "Test your understanding of AI tool development, prototyping principles, agile delivery, and the SAFe framework."
+description: "Test your understanding of AI tool development, prototyping principles, Agile delivery, and the Agile framework."
 questions:
   - id: "m4-q1"
     type: "multiple-choice-single"
@@ -74,7 +74,7 @@ questions:
       - "cost"
     segments:
       - type: "text"
-        value: "Before investing significant time in prototype development, validate technical "
+        value: "Before investing significant time in prototype development, confirm technical "
       - type: "blank"
         value: "feasibility"
         accept:

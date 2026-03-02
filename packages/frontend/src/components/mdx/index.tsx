@@ -6,9 +6,6 @@ import CodeExample from './CodeExample';
 import BeforeAfter from './BeforeAfter';
 import DataReveal from './DataReveal';
 import ProcessFlow from './ProcessFlow';
-import ComparisonMatrix from './ComparisonMatrix';
-import Diagram from './Diagram';
-import DataChart from './DataChart';
 import GlossaryTerm from './GlossaryTerm';
 import AutoGlossaryHighlight from './AutoGlossaryHighlight';
 import ReflectionPrompt from './ReflectionPrompt';
@@ -17,6 +14,31 @@ import VideoEmbed from './VideoEmbed';
 import DownloadResource from './DownloadResource';
 import AIExercise from './AIExercise';
 import PromptScorer from './PromptScorer';
+import {
+  PhaseProgressionHex,
+  BenefitsGraphic,
+  PlaybookStructure,
+  CircularActivityFlow,
+  ProblemStatementElements,
+  ProblemStatementEvaluation,
+  IssuesTreeInteractive,
+  AIConversationIssuesTree,
+  FormalDataRequest,
+  DataRequestRisks,
+  DataRequestRefinement,
+  VisualizationTypes,
+  MultiTurnPromptFCR,
+  WSJFScoringFactors,
+  WSJFFormulaBreakdown,
+  ValueComplexityScatter,
+  ValueComplexityMatrix,
+  IterativeCycleDiagram,
+  DesignPrototypeStages,
+  AgileStagesRoles,
+  AgileContinuousCycle,
+  ProblemSolvingMandate,
+  GeographicHeatMap,
+} from './visuals';
 
 // HTML element overrides for MDX content
 function createHeading(level: 1 | 2 | 3) {
@@ -93,9 +115,6 @@ export const mdxComponents: Record<string, ComponentType<any>> = {
   BeforeAfter,
   DataReveal,
   ProcessFlow,
-  ComparisonMatrix,
-  Diagram,
-  DataChart,
   GlossaryTerm,
   ReflectionPrompt,
   DecisionPoint,
@@ -103,6 +122,31 @@ export const mdxComponents: Record<string, ComponentType<any>> = {
   DownloadResource,
   AIExercise,
   PromptScorer,
+
+  // Visual graphics
+  PhaseProgressionHex,
+  BenefitsGraphic,
+  PlaybookStructure,
+  CircularActivityFlow,
+  ProblemStatementElements,
+  ProblemStatementEvaluation,
+  IssuesTreeInteractive,
+  AIConversationIssuesTree,
+  FormalDataRequest,
+  DataRequestRisks,
+  DataRequestRefinement,
+  VisualizationTypes,
+  MultiTurnPromptFCR,
+  WSJFScoringFactors,
+  WSJFFormulaBreakdown,
+  ValueComplexityScatter,
+  ValueComplexityMatrix,
+  IterativeCycleDiagram,
+  DesignPrototypeStages,
+  AgileStagesRoles,
+  AgileContinuousCycle,
+  ProblemSolvingMandate,
+  GeographicHeatMap,
 
   // HTML overrides
   h1: createHeading(1),
@@ -126,9 +170,6 @@ export {
   BeforeAfter,
   DataReveal,
   ProcessFlow,
-  ComparisonMatrix,
-  Diagram,
-  DataChart,
   GlossaryTerm,
   AutoGlossaryHighlight,
   ReflectionPrompt,
