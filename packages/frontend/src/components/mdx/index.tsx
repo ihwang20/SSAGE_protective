@@ -14,6 +14,7 @@ import VideoEmbed from './VideoEmbed';
 import DownloadResource from './DownloadResource';
 import AIExercise from './AIExercise';
 import PromptScorer from './PromptScorer';
+import MultipleChoice from './MultipleChoice';
 import {
   PhaseProgressionHex,
   BenefitsGraphic,
@@ -122,6 +123,7 @@ export const mdxComponents: Record<string, ComponentType<any>> = {
   DownloadResource,
   AIExercise,
   PromptScorer,
+  MultipleChoice,
 
   // Visual graphics
   PhaseProgressionHex,
@@ -178,4 +180,5 @@ export {
   DownloadResource,
   AIExercise,
   PromptScorer,
+  MultipleChoice,
 };

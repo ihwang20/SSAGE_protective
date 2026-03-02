@@ -475,18 +475,6 @@ export async function getUsersWithModuleProgress(courseSlug: string): Promise<Us
               COALESCE(SUM(time_spent_seconds), 0)::int as time_seconds,
               COALESCE(SUM(active_time_seconds), 0)::int as active_seconds
        FROM lesson_progress
-       WHERE user_id = $1 AND course_slug = $2
-       GROUP BY module_slug`,
-      [user.id, courseSlug]
-    );
-    const lpMap: Record<string, { completed: number; time_seconds: number; active_seconds: number }> = {};
-    for (const row of lpResult.rows) {
-      lpMap[row.module_slug] = { completed: row.completed, time_seconds: row.time_seconds, active_seconds: row.active_seconds };
-    }
-
-    // KC scores per module
-    const kcResult = await pool.query(
-      `SELECT module_slug,
        WHERE user_id = ANY($1::uuid[]) AND course_slug = $2
        GROUP BY user_id, module_slug`,
       [userIds, courseSlug]
@@ -540,7 +528,6 @@ export async function getUsersWithModuleProgress(courseSlug: string): Promise<Us
 
     const totalActiveSeconds = moduleProgress.reduce((sum, m) => sum + m.active_time_seconds, 0);
 
-    results.push({
     return {
       id: user.id,
       name: user.name,

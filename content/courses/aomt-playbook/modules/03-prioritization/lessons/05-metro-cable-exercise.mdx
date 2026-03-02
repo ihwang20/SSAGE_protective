@@ -7,62 +7,71 @@ order: 5
 
 # Metro Cable Exercise: Prioritization
 
-This exercise applies the full Opportunity Prioritization toolkit to the validated Metro Cable findings. You will move from raw diagnostic outputs through structured documentation, WSJF scoring, and Value vs. Complexity placement — the same sequence used to build the final roadmap recommendation.
+Apply the full Opportunity Prioritization toolkit to Metro Cable's validated findings.
 
 <Callout type="concept" title="Where You Are in the Engagement">
-The diagnostic phase is complete. Three root causes have been validated: technician-to-job skill mismatches in underperforming zones, systematic underestimation of complex job durations, and absence of real-time re-routing. You must now document, score, and sequence these opportunities before presenting a prioritized roadmap to the Metro Cable executive committee.
+The diagnostic phase is complete. Three root causes have been validated. You must now document, score, and sequence these opportunities before presenting a prioritized roadmap to the Metro Cable executive committee.
 </Callout>
 
 ## Part 1: Opportunity Documentation
 
-Before opportunities can be compared or scored, each must be documented in a standardized 8-element format.
-
 <AIExercise
   scenario="You are preparing the opportunity documentation for Metro Cable's highest-priority finding: technician-to-job skill mismatches in Zones 4, 7, and 12. Your analysis showed that 67% of repair-complex jobs in these zones are assigned to Tier 1–2 technicians, versus 22% in top-performing zones. Jobs assigned within the correct tier have 91% first-visit resolution versus 71% for mismatched assignments."
-  instructions="Using the 8-element opportunity documentation template, write a complete opportunity document for the AI Skill-Match Dispatch opportunity. Include a quantified impact estimate, affected stakeholders, and at least two solution options with comparative profiles."
-  referencePrompt={`Opportunity Title: AI Skill-Match Dispatch
-
-Problem Summary: First-visit resolution rates in Zones 4, 7, and 12 are 18–22% below company average due to systematic mismatches between technician certification tier and job complexity. Analysis of 14 months of dispatch records shows that 67% of repair-complex jobs in these zones are assigned to Tier 1–2 technicians, compared to 22% in top-performing zones. This mismatch is the primary validated driver of the 23-point dispatch accuracy gap.
-
-Quantified Impact: Correcting tier-to-job mismatches across all zones is projected to improve first-visit resolution by 10–12 percentage points, based on the 20-point resolution rate differential between correctly and incorrectly matched assignments. At Metro Cable's current volume, each percentage point of FCR improvement eliminates approximately 1,800 return truck rolls annually, valued at ~$210 per roll ($378K per point, or $3.8M–$4.5M annually for a 10–12 point improvement).
-
-Affected Stakeholders: Field technicians (tier validation and re-certification triggers), dispatch coordinators (new assignment workflow and override protocols), field service managers (zone-level performance accountability), customers (improved first-visit outcomes and reduced appointment rescheduling).
-
-Solution Options:
-- Option A (Assistive AI): Deploy an AI recommendation engine that flags tier-to-job mismatches at assignment time and surfaces the top 3 alternative technicians ranked by tier match and proximity. Coordinators retain final approval. Estimated effort: 8–10 weeks, requires integration with certification database and dispatch platform. Low organizational risk.
-- Option B (Agentic AI): Deploy a fully automated dispatch engine that assigns jobs based on a weighted optimization model (tier match, distance, availability). Human override available but not required. Estimated effort: 16–20 weeks, requires full API access and model training data. Higher capability ceiling but greater change management complexity.
-
-Dependencies: Access to certification database (API integration), dispatch platform integration rights, updated and validated Tier classifications (certifications must be current within 12 months).
-
-Risks and Mitigations: Stale certification data may inflate the apparent mismatch rate (Mitigation: audit and refresh all Tier assignments before go-live). Coordinator resistance to AI recommendations may reduce adoption (Mitigation: launch with Option A assistive mode and transparency into recommendation reasoning). Model accuracy may decline if job mix shifts significantly (Mitigation: quarterly retraining cadence tied to performance review cycle).
-
-Supporting Evidence: Zone-level tier assignment analysis (dispatch records, 14-month dataset); first-visit resolution rate by tier × job type table (Part 2 of Module 02 exercise); benchmark comparison to top-performing zones; stakeholder validation session with dispatch operations lead (confirmed that tier mismatches are known pain point with no current systematic fix).`}
+  instructions="Using the 8-element opportunity documentation template (Title, Problem Summary, Quantified Impact, Affected Stakeholders, Solution Options, Dependencies, Risks and Mitigations, Supporting Evidence), write a complete opportunity document for the AI Skill-Match Dispatch opportunity. Include at least two solution options with different investment and timeline profiles."
 />
 
 ## Part 2: WSJF Scoring
 
-<ReflectionPrompt
-  question="Using the validated Metro Cable opportunity set — (1) AI Skill-Match Dispatch, (2) Dynamic Job Duration Calibration, and (3) Real-Time Re-routing — score each opportunity on the four WSJF components (Business Value, Time Criticality, Risk Reduction, Job Size) using the Fibonacci scale (1, 2, 3, 5, 8, 13). Calculate the WSJF score for each and explain the sequencing logic."
-  answer="Suggested scoring:
-
-AI Skill-Match Dispatch: Business Value = 13 (primary driver of the accuracy gap, largest projected impact), Time Criticality = 8 (customer churn is accelerating; delay compounds the loss), Risk Reduction = 5 (reduces operational variability and call-back costs), Job Size = 2 (existing data and API integrations; prototypable in weeks). Cost of Delay = 26. WSJF = 26 ÷ 2 = 13.0.
-
-Dynamic Job Duration Calibration: Business Value = 8 (reduces scheduling compression; enables the dispatch engine to function reliably), Time Criticality = 5 (moderate urgency; calibration data is stable), Risk Reduction = 3 (lower risk surface than dispatch routing), Job Size = 1 (primarily a data update and algorithm adjustment; no new infrastructure). Cost of Delay = 16. WSJF = 16 ÷ 1 = 16.0.
-
-Real-Time Re-routing: Business Value = 5 (addresses cascade failures; important but lower baseline impact than the other two), Time Criticality = 5 (moderate; current workaround is manual coordinator intervention), Risk Reduction = 3 (reduces afternoon schedule degradation), Job Size = 3 (requires real-time data feeds and standby pool management). Cost of Delay = 13. WSJF = 13 ÷ 3 = 4.3.
-
-Prioritized sequence: Duration Calibration first (WSJF 16.0 — small effort, high leverage as a prerequisite for accurate dispatch modeling), then Skill-Match Dispatch (WSJF 13.0 — largest value, enables immediate FCR improvement), then Real-Time Re-routing (WSJF 4.3 — valuable but best implemented once the upstream scheduling inputs are correct)."
+<MultipleChoice
+  question="Metro Cable has scored three opportunities: AI Skill-Match Dispatch (WSJF 13.0), Dynamic Job Duration Calibration (WSJF 16.0), and Real-Time Re-routing (WSJF 4.3). Which sequencing is correct?"
+  options={[
+    {
+      id: "a",
+      label: "Skill-Match Dispatch first — it has the largest projected FCR improvement.",
+      correct: false,
+      explanation: "Projected impact matters, but WSJF also weighs job size. Skill-Match Dispatch scored 13.0 — high value, but a larger effort than Duration Calibration. WSJF is designed to surface high-value, low-effort opportunities first."
+    },
+    {
+      id: "b",
+      label: "Duration Calibration first, then Skill-Match Dispatch, then Re-routing.",
+      correct: true,
+      explanation: "Correct. Duration Calibration has the highest WSJF (16.0) because it requires minimal effort (a data update and algorithm adjustment) while unlocking scheduling accuracy for all job types. It also improves the input quality for the dispatch AI. Skill-Match Dispatch follows at 13.0. Re-routing at 4.3 is best after the upstream inputs are accurate."
+    },
+    {
+      id: "c",
+      label: "All three opportunities should launch simultaneously to accelerate impact.",
+      correct: false,
+      explanation: "Simultaneous launches divide organizational attention and create dependencies that are difficult to manage. WSJF is specifically designed to sequence work so the highest-value items deliver results faster, not to run everything at once."
+    },
+    {
+      id: "d",
+      label: "Re-routing first — it addresses the cascade failures that make the other two less effective.",
+      correct: false,
+      explanation: "Re-routing addresses cascade failures, but cascade failures are partly caused by inaccurate job duration estimates. Fixing Duration Calibration first reduces the frequency of cascades, making Re-routing more effective when it is eventually deployed."
+    }
+  ]}
 />
 
 ## Part 3: Value vs. Complexity Placement
 
-<ReflectionPrompt
-  question="Plot the three Metro Cable opportunities on a Value vs. Complexity Matrix. Which quadrant does each fall in, and what does that placement tell the executive committee about sequencing and investment?"
-  answer="Dynamic Job Duration Calibration → Quick Win (High Value, Low Complexity): Recalibrating duration estimates requires no new technology — it is a data update and algorithm adjustment to the existing scheduling system. Yet it unlocks scheduling accuracy for every job type and is a prerequisite for the dispatch AI to function reliably. Executive message: Do this first; it costs almost nothing and makes everything else work better.
-
-AI Skill-Match Dispatch → Strategic Bet (High Value, High Complexity): This opportunity delivers the largest projected FCR improvement but requires API integration with the certification database, model development, and coordinator training. It is the anchor investment of the roadmap. Executive message: Commit the resources — this is the core intervention.
-
-Real-Time Re-routing → Fill-In or early Strategic Bet (Moderate Value, Moderate Complexity): Re-routing addresses a real problem (cascade schedule failures) but its impact depends on the dispatch and duration foundations being in place first. Complexity is moderate — real-time data feeds add technical overhead. Executive message: Sequence this after the first two; it amplifies gains once the upstream inputs are accurate.
-
-The matrix makes the sequencing logic immediate: Duration Calibration is the unlock that costs little; Skill-Match Dispatch is the primary investment; Re-routing is the force multiplier."
+<DecisionPoint
+  scenario="You are presenting the Value vs. Complexity Matrix to Metro Cable's executive committee. The CFO points to Dynamic Job Duration Calibration and asks: 'Why is this in the Quick Win quadrant? It sounds trivial.' How do you respond?"
+  options={[
+    {
+      id: "a",
+      label: "Move it to Strategic Bets to match the CFO's expectations.",
+      outcome: "Adjusting the matrix to match stakeholder expectations rather than the evidence undermines the credibility of the prioritization framework. The matrix reflects validated effort and value estimates — not perceived importance."
+    },
+    {
+      id: "b",
+      label: "Explain that 'Quick Win' describes the effort-to-value ratio, not the strategic importance — Duration Calibration is high-leverage precisely because it unlocks everything downstream at low cost.",
+      outcome: "Correct response. Quick Win does not mean unimportant — it means the value-to-complexity ratio is favorable. Duration Calibration is the unlock that improves scheduling accuracy for all subsequent tools. This framing helps the CFO see why the sequencing starts here.",
+      recommended: true
+    },
+    {
+      id: "c",
+      label: "Remove it from the matrix and address it as a background task.",
+      outcome: "Removing it hides a high-leverage opportunity from the roadmap. The executive committee needs visibility into the full opportunity set, including dependencies between items."
+    }
+  ]}
 />

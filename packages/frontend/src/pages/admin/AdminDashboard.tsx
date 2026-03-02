@@ -308,7 +308,26 @@ export default function AdminDashboard() {
                 </span>
               ))}
             </div>
-          ) : (() => {
+          </div>
+          <div className="flex h-6 rounded-full overflow-hidden bg-gray-100">
+            {statusSegments.map((s) => {
+              const pct = statusTotal > 0 ? (s.count / statusTotal) * 100 : 0;
+              if (pct === 0) return null;
+              return (
+                <div
+                  key={s.label}
+                  className={`${s.color} transition-all duration-500`}
+                  style={{ width: `${pct}%` }}
+                  title={`${s.label}: ${s.count} (${Math.round(pct)}%)`}
+                />
+              );
+            })}
+          </div>
+        </Card>
+      </motion.div>
+
+      {/* User Progress */}
+      {(() => {
             const lower = userSearch.toLowerCase();
             const filtered = lower
               ? userAnalytics.filter((u) => u.name.toLowerCase().includes(lower) || u.email.toLowerCase().includes(lower))
@@ -510,24 +529,7 @@ export default function AdminDashboard() {
                 })}
               </div>
             );
-          })()}
-          </div>
-          <div className="flex h-6 rounded-full overflow-hidden bg-gray-100">
-            {statusSegments.map((s) => {
-              const pct = statusTotal > 0 ? (s.count / statusTotal) * 100 : 0;
-              if (pct === 0) return null;
-              return (
-                <div
-                  key={s.label}
-                  className={`${s.color} transition-all duration-500`}
-                  style={{ width: `${pct}%` }}
-                  title={`${s.label}: ${s.count} (${Math.round(pct)}%)`}
-                />
-              );
-            })}
-          </div>
-        </Card>
-      </motion.div>
+      })()}
 
       {/* Module Completion Funnel */}
       {metrics.module_funnel.length > 0 && (
