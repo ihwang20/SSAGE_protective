@@ -1,0 +1,135 @@
+---
+title: "Metro Cable Exercise: Full Diagnostic"
+slug: "13-metro-cable-exercise"
+estimated_duration_minutes: 15
+order: 13
+activity: "Phase 1: Iterative Diagnosis"
+---
+
+# Metro Cable Exercise: Full Diagnostic
+
+Move from problem framing through data analysis to opportunity synthesis using the Metro Cable case.
+
+<Callout type="concept" title="Where You Are in the Engagement">
+Metro Cable's executive committee has approved the engagement. You have the Problem Statement (dispatch accuracy at 62% vs. 85% benchmark, 12-month window). Now diagnose the root causes, validate them with data, and produce a prioritized list of opportunities.
+</Callout>
+
+## Part 1: Build the Issues Tree
+
+<MultipleChoice
+  question="You are building the first-level Issues Tree for Metro Cable's dispatch accuracy gap. Which branch is least useful as a first-level hypothesis?"
+  options={[
+    {
+      id: "a",
+      label: "Technician Factors — skill-to-job mismatches driving repeat visits.",
+      correct: false,
+      explanation: "This is a strong first-level branch. It is testable with dispatch records and certification data, and points to a specific mechanism (misassignment) that could explain the FCR gap."
+    },
+    {
+      id: "b",
+      label: "Routing and Scheduling — geographic zone assignments not accounting for travel time variability.",
+      correct: false,
+      explanation: "Also a strong branch. Travel time and zone assignment logic are directly observable in the dispatch data and could independently explain the accuracy gap."
+    },
+    {
+      id: "c",
+      label: "Industry Competition — customers choosing competitors, reducing Metro Cable's incentive to improve.",
+      correct: true,
+      explanation: "Correct — this is the least useful branch. It describes an external market condition, not an internal operational driver of the dispatch accuracy gap. The Issues Tree should decompose causes within Metro Cable's control."
+    },
+    {
+      id: "d",
+      label: "Job Scoping Accuracy — inaccurate duration estimates causing scheduling compression.",
+      correct: false,
+      explanation: "A valid branch. Duration estimation is testable using actual vs. estimated completion times in the dispatch records, and scheduling compression is a plausible driver of accuracy degradation."
+    }
+  ]}
+/>
+
+## Part 2: Identify the Strongest Analysis Prompt
+
+<MultipleChoice
+  question="You need to investigate the relationship between technician certification level and first-visit resolution rate in Metro Cable's dispatch data. Which prompt best demonstrates the C+T+O (Context + Task + Output) framework?"
+  options={[
+    {
+      id: "a",
+      label: "\"Analyze the dispatch data and tell me what's wrong with technician assignments.\"",
+      correct: false,
+      explanation: "This prompt is missing all three C+T+O elements. There is no Context (what data is loaded, what has been found so far), no specific Task (what analysis to run, which variables), and no Output specification. The result will be generic and hard to act on."
+    },
+    {
+      id: "b",
+      label: "\"We have 14 months of Metro Cable dispatch records with technician IDs, certification levels, job types, and FCR outcomes. Zones 4, 7, and 12 are 18–22% below average FCR. Analyze first-visit resolution by certification tier for repair-complex jobs only, controlling for zone. Present results as a table showing mean FCR per tier with sample sizes; flag any tier where n < 30 as statistically unreliable.\"",
+      correct: true,
+      explanation: "Correct. This prompt includes all three C+T+O elements: Context (14 months of data, underperforming zones already identified), Task (analyze FCR by tier for repair-complex jobs, control for zone), and Output (table with sample sizes and reliability flags). Specific prompts produce specific, actionable results."
+    },
+    {
+      id: "c",
+      label: "\"Run a correlation analysis between certification level and FCR. Show me the results in a chart.\"",
+      correct: false,
+      explanation: "This has a partial Task and vague Output but no Context. Without knowing which dataset is loaded, what prior findings exist, or what job types to include, the AI may run the analysis on the wrong scope or produce a result the practitioner cannot interpret."
+    },
+    {
+      id: "d",
+      label: "\"We have dispatch data showing performance problems in certain zones. Can you find which factors are contributing to the FCR gap?\"",
+      correct: false,
+      explanation: "This has vague Context and an open-ended exploratory Task with no Output format. Broad exploration is useful early in an analysis, but at this stage the team has a specific hypothesis to test — certification level vs. FCR in complex jobs — and needs a targeted prompt, not an open search."
+    }
+  ]}
+/>
+
+## Part 3: Analysis Validation
+
+<DecisionPoint
+  scenario="Your AI analysis shows that 67% of repair-complex jobs in Zone 7 are assigned to Tier 1–2 technicians. A colleague says: 'That's the root cause — let's recommend fixing the assignment logic.' What do you do before drawing that conclusion?"
+  options={[
+    {
+      id: "a",
+      label: "Accept the finding — 67% is a large enough signal to act on.",
+      outcome: "Size alone doesn't validate a root cause. Before concluding, you need to rule out alternative explanations: Zone 7 may have an unusually high proportion of complex jobs due to older infrastructure, or geographic factors like traffic may inflate return rates independent of technician tier."
+    },
+    {
+      id: "b",
+      label: "Test alternative explanations: check Zone 7's job mix composition, analyze travel time variance, and verify that the certification database is current.",
+      outcome: "Correct approach. Ruling out alternatives requires pulling complementary datasets. If Zone 7 has 3× the rate of repair-complex jobs as average zones, the mismatch may reflect capacity limits rather than poor assignment logic. Validation turns a hypothesis into a defensible finding.",
+      recommended: true
+    },
+    {
+      id: "c",
+      label: "Run the same analysis again with a different AI tool to confirm the number.",
+      outcome: "Re-running the same analysis confirms the math, not the interpretation. Alternative explanations require different data, not the same analysis repeated."
+    }
+  ]}
+/>
+
+## Part 4: Opportunity Synthesis
+
+<MultipleChoice
+  question="Your diagnostic has validated three root causes for Metro Cable's FCR gap. Which opportunity synthesis statement best frames these as actionable opportunities with projected impact?"
+  options={[
+    {
+      id: "a",
+      label: "\"Metro Cable has dispatch problems that need fixing. Technician assignments are wrong, duration estimates are off, and there is no re-routing capability.\"",
+      correct: false,
+      explanation: "This describes symptoms, not opportunities, and includes no quantification of impact. An opportunity synthesis must frame each finding as an addressable gap with projected improvement, not a list of problems."
+    },
+    {
+      id: "b",
+      label: "\"Three opportunities can recover 15–18 FCR points: (1) correcting tier mismatches in Zones 4, 7, 12 (67% of complex jobs misassigned, FCR 71% vs. 91% matched) could recover 6–8 points; (2) recalibrating job duration estimates (currently 35–45 min short) could recover 5–7 points by reducing scheduling compression; (3) adding real-time re-routing could recover 4–5 points. Combined, this closes 65–80% of the 23-point gap.\"",
+      correct: true,
+      explanation: "Correct. This synthesis frames each root cause as a quantified opportunity, estimates per-opportunity impact using the validated data, and projects a combined impact against the known gap. This is exactly what an executive committee needs to authorize a prioritization phase."
+    },
+    {
+      id: "c",
+      label: "\"The data suggests we should build an AI dispatch system immediately. This will fix assignment logic and improve scheduling accuracy.\"",
+      correct: false,
+      explanation: "This prescribes a solution before synthesis is complete. Opportunity synthesis frames what could be improved and at what magnitude — solution selection happens in the prioritization and tool development phases."
+    },
+    {
+      id: "d",
+      label: "\"The diagnostic found problems in Zones 4, 7, and 12. Duration estimates are also an issue. Re-routing requires further investigation before conclusions can be drawn.\"",
+      correct: false,
+      explanation: "This understates two validated findings and hedges on the third despite sufficient evidence. An opportunity synthesis should communicate confidence in validated root causes — not reopen questions that the diagnostic has already answered."
+    }
+  ]}
+/>

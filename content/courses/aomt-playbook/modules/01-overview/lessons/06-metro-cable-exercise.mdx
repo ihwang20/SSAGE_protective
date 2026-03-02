@@ -1,0 +1,134 @@
+---
+title: "Metro Cable Exercise: Playbook Overview"
+slug: "06-metro-cable-exercise"
+estimated_duration_minutes: 10
+order: 6
+---
+
+# Metro Cable Exercise: Playbook Overview
+
+Apply the two core principles — Data First and AI First — to the Metro Cable case before the diagnostic work begins.
+
+<Callout type="concept" title="The Starting Point">
+Metro Cable's executive committee has flagged a dispatch accuracy problem. The engagement team has been briefed but has not yet seen any data. The first decisions you make will shape the entire investigation.
+</Callout>
+
+## Part 1: Applying the Principles
+
+<MultipleChoice
+  question="Metro Cable's operations VP says: 'We already know the problem — it's our routing software. Can we just have the AI recommend a new vendor?' What is the correct response based on the Data First principle?"
+  options={[
+    {
+      id: "a",
+      label: "Agree — the VP has operational experience and their hypothesis is worth testing first.",
+      correct: false,
+      explanation: "Experience is valuable context, but the Data First principle requires validating any hypothesis with evidence before acting on it. Starting with a vendor evaluation would skip the diagnostic phase entirely."
+    },
+    {
+      id: "b",
+      label: "Request the dispatch records first and test the routing hypothesis against the data before evaluating vendors.",
+      correct: true,
+      explanation: "Correct. Data First means the data speaks before any conclusion is drawn. The routing hypothesis may be correct — or the data may reveal a different root cause entirely. Either way, the data decides."
+    },
+    {
+      id: "c",
+      label: "Decline the engagement — if leadership has already decided, there is no room for objective analysis.",
+      correct: false,
+      explanation: "A pre-existing hypothesis from a stakeholder is common and manageable. The practitioner's job is to redirect toward evidence, not disengage."
+    },
+    {
+      id: "d",
+      label: "Use AI to analyze the routing software's publicly available reviews and form a recommendation.",
+      correct: false,
+      explanation: "External reviews are not a substitute for Metro Cable's own operational data. The Data First principle applies to the organization's internal evidence, not general market research."
+    }
+  ]}
+/>
+
+## Part 2: AI First Design
+
+<MultipleChoice
+  question="The Metro Cable team is designing a solution for the dispatch accuracy gap. Which of the following best demonstrates 'AI First' thinking?"
+  options={[
+    {
+      id: "a",
+      label: "Automate the existing manual dispatch spreadsheet so coordinators can fill it in faster.",
+      correct: false,
+      explanation: "This is process automation, not AI First design. It speeds up a broken process rather than reimagining what dispatch could look like with AI capabilities."
+    },
+    {
+      id: "b",
+      label: "Add a notification that alerts coordinators when a technician is running late.",
+      correct: false,
+      explanation: "Useful but incremental — this is reactive alerting, not the AI First question of 'what becomes possible if AI handles dispatch optimization end-to-end?'"
+    },
+    {
+      id: "c",
+      label: "Design a system where AI matches technicians to jobs based on real-time skill, location, and availability — then ask what needs to be built to make that possible.",
+      correct: true,
+      explanation: "Correct. AI First starts with the ideal AI-enabled outcome and works backward to the implementation. This is fundamentally different from incrementally improving a manual process."
+    },
+    {
+      id: "d",
+      label: "Survey coordinators about what features they wish the current system had.",
+      correct: false,
+      explanation: "User research is valuable input, but AI First design asks what becomes possible with AI — not just what users want within the current paradigm."
+    }
+  ]}
+/>
+
+## Part 3: Mapping Metro Cable to the Playbook
+
+<MultipleChoice
+  question="Metro Cable's engagement has been scoped. The problem statement identifies a 23-point dispatch accuracy gap (62% vs. 85% benchmark) with a 12-month window. Which statement best describes Phase 1, its primary output, and AI's role?"
+  options={[
+    {
+      id: "a",
+      label: "Phase 1 is solution design. The primary output is an AI dispatch prototype. AI generates the code for the system.",
+      correct: false,
+      explanation: "Solution design comes in Phase 4 (Tool Development), after the diagnostic, problem statement, and prioritization work is complete. Beginning with a prototype skips the root cause analysis that determines what to build."
+    },
+    {
+      id: "b",
+      label: "Phase 1 is diagnostic. The primary output is a validated Problem Statement and root cause findings. AI analyzes dispatch data and surfaces patterns the team tests against hypotheses.",
+      correct: true,
+      explanation: "Correct. Phase 1 (AI-Enabled Problem Solving) produces the validated Problem Statement and root cause findings that every subsequent phase depends on. AI accelerates the diagnostic by processing 14 months of dispatch records at scale — but the practitioner directs the hypotheses and validates the findings."
+    },
+    {
+      id: "c",
+      label: "Phase 1 is prioritization. The primary output is a WSJF-scored opportunity roadmap. AI calculates value and complexity scores for each opportunity.",
+      correct: false,
+      explanation: "Prioritization (Phase 3) cannot happen until the diagnostic findings are in hand. Without validated root causes, there are no opportunities to score."
+    },
+    {
+      id: "d",
+      label: "Phase 1 is change management. The primary output is a stakeholder communications plan. AI drafts messaging for each stakeholder group.",
+      correct: false,
+      explanation: "Change management (Phase 6) comes last — after the solution is designed and ready to deploy. A communications plan at the start of the engagement has nothing to communicate yet."
+    }
+  ]}
+/>
+
+## Part 4: Framing the Problem
+
+<DecisionPoint
+  scenario="The Metro Cable executive committee wants to see a solution recommendation at the end of the engagement. A stakeholder suggests framing the engagement as: 'We need to implement an AI dispatch system.' What do you do?"
+  options={[
+    {
+      id: "a",
+      label: "Accept the framing — it aligns with the AI First principle.",
+      outcome: "This is a solution statement, not a problem statement. The AI First principle means designing solutions with AI — not pre-selecting the solution before the diagnosis. Accepting this framing skips the diagnostic phase and risks building the wrong thing."
+    },
+    {
+      id: "b",
+      label: "Reframe it as a Problem Statement: 'Dispatch accuracy is 23 points below the industry benchmark, and we need to understand why before selecting a solution.'",
+      outcome: "Correct approach. The Problem Statement must describe the gap and its consequences, not prescribe a solution. This keeps the team focused on understanding root causes before committing to implementation. Once the diagnosis is complete, an AI dispatch system may well be the right answer — but the data will confirm it.",
+      recommended: true
+    },
+    {
+      id: "c",
+      label: "Compromise — include 'AI dispatch system' as one option alongside others.",
+      outcome: "Including a pre-selected solution in the Problem Statement biases the diagnostic work. If 'AI dispatch system' is already on the table as the expected answer, analyses will tend to confirm it rather than test it objectively."
+    }
+  ]}
+/>

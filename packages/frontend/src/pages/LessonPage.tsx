@@ -5,6 +5,7 @@ import { Clock } from 'lucide-react';
 import { useLessonContent } from '../hooks/useLessonContent';
 import { useHeartbeat } from '../hooks/useHeartbeat';
 import { useCourse } from '../context/CourseContext';
+import { GlossarySeenProvider } from '../context/GlossarySeenContext';
 import LessonNav from '../components/layout/LessonNav';
 import { GradientMesh, TopographicBg } from '../components/ui/Backgrounds';
 import { pageTransition } from '../lib/animations';
@@ -41,6 +42,8 @@ export default function LessonPage() {
     if (!navTree || !course || !moduleSlug || !lessonSlug) return false;
     const isLinear = course.navigation_mode === 'linear';
     const requireKC = course.require_knowledge_checks ?? false;
+    // Locking disabled
+    return false;
     if (!isLinear && !requireKC) return false;
 
     const allLessons: Array<{ modSlug: string; slug: string; status: string }> = [];
@@ -163,7 +166,7 @@ export default function LessonPage() {
 
   if (loading) {
     return (
-      <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="max-w-3xl mx-auto px-6 sm:px-12 py-12">
         <div className="animate-pulse space-y-4">
           <div className="h-4 bg-surface rounded w-1/4" />
           <div className="h-8 bg-surface rounded w-3/4" />
@@ -180,7 +183,7 @@ export default function LessonPage() {
 
   if (error) {
     return (
-      <div className="max-w-3xl mx-auto px-6 py-12 text-center">
+      <div className="max-w-3xl mx-auto px-6 sm:px-12 py-12 text-center">
         <p className="text-error font-semibold">Failed to load lesson</p>
         <p className="text-text-secondary mt-2">{error}</p>
       </div>
@@ -199,7 +202,7 @@ export default function LessonPage() {
       {meta && (
         <section className="relative overflow-hidden">
           <GradientMesh className="opacity-40" />
-          <div className="relative max-w-3xl mx-auto px-6 pt-8 pb-6">
+          <div className="relative max-w-3xl mx-auto px-6 sm:px-12 pt-8 pb-6">
             {/* Module & progress context */}
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs font-bold uppercase tracking-wider text-primary">
@@ -238,15 +241,17 @@ export default function LessonPage() {
       {/* Content area with topo background */}
       <div className="relative">
         <TopographicBg />
-        <div className="relative max-w-3xl mx-auto px-6 py-8">
+        <div className="relative max-w-3xl mx-auto px-6 sm:px-12 py-8">
           {/* MDX content */}
-          <article
-            data-section-numbering
-            style={{ '--lesson-prefix': `'${moduleNumber}.${lessonInModule}'` } as React.CSSProperties}
-            className="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-text-primary prose-p:text-text-secondary prose-a:text-link prose-strong:text-text-primary prose-code:text-primary prose-code:bg-primary-light prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-th:text-white"
-          >
-            {MdxComponent && <MdxComponent />}
-          </article>
+          <GlossarySeenProvider>
+            <article
+              data-section-numbering
+              style={{ '--lesson-prefix': `'${moduleNumber}.${lessonInModule}'` } as React.CSSProperties}
+              className="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-text-primary prose-p:text-text-secondary prose-a:text-link prose-strong:text-text-primary prose-code:text-primary prose-code:bg-primary-light prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-th:text-white"
+            >
+              {MdxComponent && <MdxComponent />}
+            </article>
+          </GlossarySeenProvider>
 
           {/* Previous/Next navigation */}
           {slug && (

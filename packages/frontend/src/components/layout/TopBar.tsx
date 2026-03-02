@@ -1,22 +1,27 @@
-import { Home, Menu, LogOut } from 'lucide-react';
+import { Home, Menu, LogOut, ZoomIn, ZoomOut } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { useCourse } from '../../context/CourseContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
+import { useFontSize } from '../../context/FontSizeContext';
 
 interface TopBarProps {
   onMobileMenuToggle: () => void;
 }
 
 export default function TopBar({ onMobileMenuToggle }: TopBarProps) {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug, moduleSlug, lessonSlug } = useParams<{ slug: string; moduleSlug: string; lessonSlug: string }>();
   const { course, navTree } = useCourse();
   const { theme } = useTheme();
   const { user, logout } = useAuth();
+  const { canZoomIn, canZoomOut, zoomIn, zoomOut } = useFontSize();
 
   const completedPercent = navTree
     ? Math.round((navTree.completed_lessons / Math.max(navTree.total_lessons, 1)) * 100)
     : 0;
+
+  const currentModule = moduleSlug ? navTree?.modules.find((m) => m.slug === moduleSlug) : null;
+  const currentLesson = currentModule && lessonSlug ? currentModule.lessons.find((l) => l.slug === lessonSlug) : null;
 
   return (
     <header className="sticky top-0 z-50 bg-white/60 backdrop-blur-xl border-b border-white/50 shadow-elevation-1">
@@ -47,17 +52,49 @@ export default function TopBar({ onMobileMenuToggle }: TopBarProps) {
           />
         </div>
 
-        {/* Centered course title */}
+        {/* Centered breadcrumb */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span className="text-base font-semibold text-primary truncate max-w-[50%]">
-            {course?.title || 'Loading...'}
-          </span>
+          {currentModule ? (
+            <div className="flex flex-col items-center max-w-[50%]">
+              <span className="text-[10px] font-medium text-text-secondary uppercase tracking-wide truncate w-full text-center leading-none">
+                {currentModule.title}
+              </span>
+              <span className="text-sm font-semibold text-primary truncate w-full text-center leading-snug">
+                {currentLesson ? currentLesson.title : 'Knowledge Check'}
+              </span>
+            </div>
+          ) : (
+            <span className="text-base font-semibold text-primary truncate max-w-[50%]">
+              {course?.title || 'Loading...'}
+            </span>
+          )}
         </div>
 
         {/* Spacer */}
         <div className="flex-1" />
 
         {/* Right group */}
+        <div className="hidden sm:flex items-center gap-1">
+          <button
+            onClick={zoomOut}
+            disabled={!canZoomOut}
+            className="p-1.5 rounded-md hover:bg-surface transition-colors text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed"
+            aria-label="Decrease text size"
+            title="Decrease text size"
+          >
+            <ZoomOut size={16} />
+          </button>
+          <button
+            onClick={zoomIn}
+            disabled={!canZoomIn}
+            className="p-1.5 rounded-md hover:bg-surface transition-colors text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed"
+            aria-label="Increase text size"
+            title="Increase text size"
+          >
+            <ZoomIn size={16} />
+          </button>
+        </div>
+
         <div className="hidden sm:flex items-center gap-3 text-xs text-text-secondary">
           <span>{completedPercent}% complete</span>
         </div>
