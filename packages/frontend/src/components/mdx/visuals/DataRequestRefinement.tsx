@@ -1,38 +1,80 @@
 import ScrollReveal from '../ScrollReveal';
 
+const typeColors: Record<string, { bg: string; text: string }> = {
+  Data:    { bg: '#EEF2FF', text: '#4338CA' },
+  Meeting: { bg: '#ECFDF5', text: '#065F46' },
+  Tech:    { bg: '#FEF3C7', text: '#92400E' },
+};
+
+// [requestType, category, item, description, owner, isNew]
+const rows: [string, string, string, string, string, boolean][] = [
+  ['Data',    'Customer Satisfaction', 'Historical ACS scores and customer satisfaction survey data',             'Detailed customer satisfaction scores (ACS) for Metro Cable over the past 3–5 years, including satisfaction by service type, zip code, and demographics',                                                                false],
+  ['Data',    'Customer Support',      'Call center performance and customer service metrics',                    'Call center data including average wait times, call abandonment rates, first call resolution rates, and escalation frequency',                                                                                           false],
+  ['Data',    'Pricing & Billing',     'Pricing information, billing accuracy, and dispute data',                 'Pricing information, billing accuracy, and statistics on billing error rates, customer disputes, and resolution times',                                                                                                  false],
+  ['Data',    'Product/Service Offerings', 'Service reliability, quality, and outage data',                      'Video/Audio quality metrics, cable TV channel availability, internet speed, reliability and outage frequency and duration by service area',                                                                             false],
+  ['Data',    'Competitive Analysis',  'Competitor benchmark data and market analysis',                           'Pricing comparison, service offerings, customer satisfaction scores, and market share data for key competitors',                                                                                                          false],
+  ['Data',    'Finance',               'Rate case historical data and PSC decision documentation',                'Previous rate case submissions, PSC decisions and feedback, and correlation between customer satisfaction and rate approvals',                                                                                           false],
+  ['Meeting', 'Stakeholder Alignment', 'Kickoff meeting with Metro Cable leadership',                             'Kickoff meeting to align on project scope, objectives, timeline, and key stakeholders',                                                                                                                                  false],
+  ['Meeting', 'Subject Matter Expert', 'Customer Experience team interview sessions',                             'Series of interviews with Customer Experience team to understand current pain points, recent changes, and known service issues',                                                                                          false],
+  ['Tech',    'Data Access',           'Access to customer database and analytics systems',                       'User credentials and permissions for customer database, CRM system, billing system, and analytics platform',                                                                                                             false],
+  ['Data',    'Operations',            'Employee training and staffing data',                                     'Training completion rates, employee satisfaction data, staffing levels by department, and technician headcount and zone coverage',                                                                                      false],
+  ['Meeting', 'Regulatory',            'PSC requirements and expectations briefing',                              'Meeting with Regulatory Affairs to understand PSC requirements and expectations for the upcoming rate case submittal',                                                                                                   false],
+  ['Data',    'Process Documentation', 'Current customer journey maps and process documentation',                 'Existing documentation of customer touchpoints, service delivery processes, escalation paths, and SLAs',                                                                                                                 false],
+  // New rows added based on Issues Tree hypotheses
+  ['Data',    'Customer Support',      'Repair service call data and resolution support',                         'Aggregate repair service call data including call volume, response times, time to resolution, and first-visit vs. repeat-visit outcomes across all channels',                                                            true],
+  ['Data',    'Customer Support',      'New service install performance including cancellation and turnaround times', 'New service install data including scheduled vs. actual installation times, cancellation rates, and reasons for missed appointments',                                                                               true],
+  ['Data',    'Customer Feedback',     'Qualitative customer feedback and website comments — blogs & PSC complaints', 'Open-ended survey responses, social media mentions, complaint logs, and any other unstructured customer feedback including PSC filings',                                                                            true],
+  ['Data',    'Procurement',           'Equipment inventories, truck and vendor assessment times',                 'Stocking levels, stock-out occurrences, and usage trends for key equipment and parts carried by field technicians',                                                                                                     true],
+  ['Data',    'Web Team',              'Web site analytics and log data indicating user navigation',               'Usage levels and trends showing how customers engage with the Metro Cable website, including self-service and support pages',                                                                                           true],
+];
+
 export default function DataRequestRefinement() {
   return (
     <ScrollReveal>
       <div className="my-8">
-        <h3 style={{fontWeight:700, fontSize:'1.1rem', color:'#1E1B4B', marginBottom:'0.25rem'}}>
-          Data Request Refinement: Initial vs. Targeted
+        <h3 style={{ fontWeight: 700, fontSize: '1.1rem', color: '#1E1B4B', marginBottom: '0.25rem' }}>
+          Refined Data Request
         </h3>
-        <p style={{fontSize:'0.85rem', color:'#6B7280', marginBottom:'1rem'}}>
-          Two-Phase Refinement Timeline
+        <p style={{ fontSize: '0.85rem', color: '#6B7280', marginBottom: '0.5rem' }}>
+          Metro Cable — Illustrative Example. A revised data request reflects an edited form of the AI-generated request with <strong>additional items that align to initial hypotheses</strong> (highlighted below).
         </p>
-
-        <div style={{display:'grid',gridTemplateColumns:'1fr auto 1fr',gap:'0.75rem',alignItems:'center'}}>
-          <div style={{background:'#F3F4F6',border:'1px solid #E5E7EB',borderRadius:8,padding:'1rem'}}>
-            <div style={{fontWeight:700,color:'#6B7280',fontSize:'0.75rem',textTransform:'uppercase',marginBottom:'0.5rem'}}>Phase 1 — Initial Request</div>
-            <div style={{fontSize:'0.82rem',color:'#374151',lineHeight:1.6}}>
-              <div>- Broad scope, general data types</div>
-              <div>- Before hypothesis validation</div>
-              <div>- Prioritizes availability over precision</div>
-            </div>
-            <div style={{marginTop:'0.75rem',background:'#E5E7EB',borderRadius:4,padding:'0.4rem 0.6rem',fontSize:'0.78rem',color:'#6B7280'}}>Trigger: Engagement kickoff</div>
-          </div>
-
-          <div style={{textAlign:'center',color:'#4F46E5',fontSize:'1.5rem'}}>{'\u2192'}</div>
-
-          <div style={{background:'#EEF2FF',border:'2px solid #4F46E5',borderRadius:8,padding:'1rem'}}>
-            <div style={{fontWeight:700,color:'#4F46E5',fontSize:'0.75rem',textTransform:'uppercase',marginBottom:'0.5rem'}}>Phase 2 — Refined Request</div>
-            <div style={{fontSize:'0.82rem',color:'#374151',lineHeight:1.6}}>
-              <div>- Targeted to validated hypotheses</div>
-              <div>- Extended timeframes added</div>
-              <div>- Linked IDs required for correlation</div>
-            </div>
-            <div style={{marginTop:'0.75rem',background:'#C7D2FE',borderRadius:4,padding:'0.4rem 0.6rem',fontSize:'0.78rem',color:'#3730A3'}}>Trigger: After initial hypothesis testing</div>
-          </div>
+        <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', fontSize: '0.75rem', color: '#6B7280' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <span style={{ width: 12, height: 12, background: '#FEF3C7', border: '1px solid #F59E0B', borderRadius: 2, display: 'inline-block' }} />
+            New additions based on hypotheses
+          </span>
+        </div>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem', tableLayout: 'fixed' }}>
+            <thead>
+              <tr style={{ background: '#1E1B4B', color: 'white' }}>
+                <th style={{ padding: '0.5rem 0.6rem', textAlign: 'left', fontWeight: 600, width: '8%' }}>Type</th>
+                <th style={{ padding: '0.5rem 0.6rem', textAlign: 'left', fontWeight: 600, width: '14%' }}>Category</th>
+                <th style={{ padding: '0.5rem 0.6rem', textAlign: 'left', fontWeight: 600, width: '22%' }}>Request Item</th>
+                <th style={{ padding: '0.5rem 0.6rem', textAlign: 'left', fontWeight: 600, width: '40%' }}>Description</th>
+                <th style={{ padding: '0.5rem 0.6rem', textAlign: 'left', fontWeight: 600, width: '16%' }}>Owner</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map(([type, category, item, description, owner, isNew], i) => {
+                const badge = typeColors[type] ?? { bg: '#F3F4F6', text: '#374151' };
+                const rowBg = isNew ? '#FFFBEB' : (i % 2 === 0 ? 'white' : '#F8F9FA');
+                return (
+                  <tr key={i} style={{ background: rowBg, borderBottom: isNew ? '1px solid #FDE68A' : '1px solid #F3F4F6', borderLeft: isNew ? '3px solid #F59E0B' : '3px solid transparent' }}>
+                    <td style={{ padding: '0.4rem 0.6rem' }}>
+                      <span style={{ background: badge.bg, color: badge.text, borderRadius: '4px', padding: '2px 6px', fontWeight: 600, fontSize: '0.7rem', whiteSpace: 'nowrap' }}>
+                        {type}
+                      </span>
+                    </td>
+                    <td style={{ padding: '0.4rem 0.6rem', color: '#374151', fontWeight: isNew ? 600 : 400 }}>{category}</td>
+                    <td style={{ padding: '0.4rem 0.6rem', color: '#1E1B4B', fontWeight: 600 }}>{item}</td>
+                    <td style={{ padding: '0.4rem 0.6rem', color: '#374151' }}>{description}</td>
+                    <td style={{ padding: '0.4rem 0.6rem', color: '#6B7280' }}>{owner}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </ScrollReveal>

@@ -3,10 +3,10 @@ import ScrollReveal from '../ScrollReveal';
 
 export default function PhaseProgressionHex() {
   const phases = [
-    // Row 1: 22 hexes (0–21), F/E pattern: F3 E1 F2 E1 F2 E2 F1 E1 F1 E3 F1 E2 F1 E1
-    { name: 'Diagnose Data',        description: 'Connect to data sources, surface patterns and anomalies', color: '#93C5FD', textColor: '#3B82F6', startCol: 0, endCol: 22, filled: new Set([0,1,2, 4,5, 7,8, 11, 13, 17, 20]) },
-    // Row 2: 22 hexes (1–22), F/E pattern: F2 E2 F1 E2 F2 E2 F2 E2 F2 E1 F1 E2 (+1 empty)
+    // Row 1: 22 hexes (1–22), F/E pattern: F2 E2 F1 E2 F2 E2 F2 E2 F2 E1 F1 E2 (+1 empty)
     { name: 'Prioritize Opps',      description: 'Rank based on impact, feasibility, criticality',          color: '#6366F1', textColor: '#6366F1', startCol: 1, endCol: 23, filled: new Set([0,1, 4, 7,8, 11,12, 15,16, 18]) },
+    // Row 2: 22 hexes (0–21), F/E pattern: F3 E1 F2 E1 F2 E2 F1 E1 F1 E3 F1 E2 F1 E1
+    { name: 'Diagnose Data',        description: 'Connect to data sources, surface patterns and anomalies', color: '#93C5FD', textColor: '#3B82F6', startCol: 0, endCol: 22, filled: new Set([0,1,2, 4,5, 7,8, 11, 13, 17, 20]) },
     // Row 3: 22 hexes (2–23), F/E pattern: F3 E1 F2 E2 F2 E1 F3 E1 F2 E1 F2 E1 (+1 empty)
     { name: 'Design & Prototype',   description: 'Create and test AI-powered solutions',                    color: '#4338CA', textColor: '#4338CA', startCol: 2,            filled: new Set([0,1,2, 4,5, 8,9, 11,12,13, 15,16, 18,19]) },
     // Row 4: 19 hexes (5–23), F/E pattern: F3 E1 F2 E2 F2 E1 F3 E1 F2 E1 F1
@@ -36,7 +36,7 @@ export default function PhaseProgressionHex() {
           AI-Enabled Problem Solving — Phase Progression
         </h3>
         <p style={{ fontSize: '0.85rem', color: '#6B7280', marginBottom: '1rem' }}>
-          Unlike traditional problem-solving approaches, AI-Enabled Problem Solving allows teams to engage in interactive problem solving where an initial diagnosis leads to prototype solutions that can be implemented for immediate improvements. Learnings from the prototype are cycled back into the diagnosis process to reveal enhancements and added features which will produce additional improvements. The key concept is to repeatedly layer small improvements in rapid succession to create an environment of continuous improvement. As improvements are implemented, Teams must be conscious of associated Change Management and Sustainment activities which are crucial to long-term success.
+          Unlike traditional problem-solving approaches, AI-Enabled Problem Solving allows teams to engage in interactive problem solving where prioritized opportunities guide targeted data diagnosis, which in turn leads to prototype solutions that can be implemented for immediate improvements. Learnings from the prototype are cycled back into the process to reveal enhancements and added features which will produce additional improvements. The key concept is to repeatedly layer small improvements in rapid succession to create an environment of continuous improvement. As improvements are implemented, Teams must be conscious of associated Change Management and Sustainment activities which are crucial to long-term success.
         </p>
         <div style={{ overflowX: 'auto' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', width: 'fit-content', margin: '0 auto' }}>

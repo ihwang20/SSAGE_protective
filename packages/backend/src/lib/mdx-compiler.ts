@@ -3,8 +3,9 @@ import remarkGfm from 'remark-gfm';
 import { getFromCache, setInCache } from './content-cache.js';
 
 export async function compileMdx(source: string, filePath: string): Promise<string> {
+  const isDev = process.env.NODE_ENV !== 'production';
   const cacheKey = `mdx:${filePath}`;
-  const cached = getFromCache<string>(cacheKey);
+  const cached = isDev ? undefined : getFromCache<string>(cacheKey);
   if (cached) return cached;
 
   const compiled = await compile(source, {
