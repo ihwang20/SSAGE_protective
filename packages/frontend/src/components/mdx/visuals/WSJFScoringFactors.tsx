@@ -14,44 +14,44 @@ export default function WSJFScoringFactors() {
       label: 'Business Value', abbr: 'BV', color: '#1E1B4B', icon: 'BarChart3',
       sub: 'Customer/Business Benefit',
       tiers: [
-        { score: '9-10', desc: 'Transformational impact on customer experience, revenue, or competitive position' },
-        { score: '7-8', desc: 'Significant measurable impact on KPIs, cost reduction 25%+, or customer satisfaction' },
-        { score: '5-6', desc: 'Moderate impact, measurable efficiency gains 10–25%, improved analytics' },
-        { score: '3-4', desc: 'Small incremental improvement, limited scope impact' },
-        { score: '1-2', desc: 'Minimal impact, nice-to-have capability' },
+        { score: '9-10', desc: 'Transformational impact', full: 'Transformational impact on customer experience, revenue, or competitive position' },
+        { score: '7-8',  desc: '25%+ cost reduction / major KPI impact', full: 'Significant measurable impact on KPIs, cost reduction 25%+, or customer satisfaction' },
+        { score: '5-6',  desc: '10–25% efficiency gains', full: 'Moderate impact, measurable efficiency gains 10–25%, improved analytics' },
+        { score: '3-4',  desc: 'Small incremental improvement', full: 'Small incremental improvement, limited scope impact' },
+        { score: '1-2',  desc: 'Minimal / nice-to-have', full: 'Minimal impact, nice-to-have capability' },
       ]
     },
     {
       label: 'Time Criticality', abbr: 'TC', color: '#0891B2', icon: 'Clock',
       sub: 'Urgency',
       tiers: [
-        { score: '9-10', desc: 'Regulatory deadline, critical competitive disadvantage, market window closing' },
-        { score: '7-8', desc: 'Significant opportunity cost if delayed, business strategy dependency' },
-        { score: '5-6', desc: 'Moderate urgency, aligned with annual planning cycle' },
-        { score: '3-4', desc: 'Low urgency, flexible timeline' },
-        { score: '1-2', desc: 'No time pressure, can be delayed indefinitely' },
+        { score: '9-10', desc: 'Regulatory deadline; market window closing', full: 'Regulatory deadline, critical competitive disadvantage, market window closing' },
+        { score: '7-8',  desc: 'High opp cost if delayed', full: 'Significant opportunity cost if delayed, business strategy dependency' },
+        { score: '5-6',  desc: 'Aligned with annual planning cycle', full: 'Moderate urgency, aligned with annual planning cycle' },
+        { score: '3-4',  desc: 'Low urgency; flexible timeline', full: 'Low urgency, flexible timeline' },
+        { score: '1-2',  desc: 'No time pressure; can delay indefinitely', full: 'No time pressure, can be delayed indefinitely' },
       ]
     },
     {
       label: 'Risk Reduction & OE', abbr: 'RR', color: '#16A34A', icon: 'Shield',
       sub: 'Strategic Value',
       tiers: [
-        { score: '9-10', desc: 'Eliminates major regulatory/compliance risk OR enables multiple future use cases' },
-        { score: '7-8', desc: 'Reduces operational risk OR unlocks new business models/products' },
-        { score: '5-6', desc: 'Moderate risk mitigation OR enables 2–3 future capabilities' },
-        { score: '3-4', desc: 'Minor risk reduction OR enables 1 future capability' },
-        { score: '1-2', desc: 'Minimal risk impact, standalone capability' },
+        { score: '9-10', desc: 'Eliminates compliance risk OR enables multiple use cases', full: 'Eliminates major regulatory/compliance risk OR enables multiple future use cases' },
+        { score: '7-8',  desc: 'Reduces ops risk OR unlocks new business models', full: 'Reduces operational risk OR unlocks new business models/products' },
+        { score: '5-6',  desc: 'Moderate mitigation OR enables 2–3 capabilities', full: 'Moderate risk mitigation OR enables 2–3 future capabilities' },
+        { score: '3-4',  desc: 'Minor reduction OR enables 1 capability', full: 'Minor risk reduction OR enables 1 future capability' },
+        { score: '1-2',  desc: 'Minimal risk; standalone capability', full: 'Minimal risk impact, standalone capability' },
       ]
     },
     {
       label: 'Job Size', abbr: 'JS', color: '#2563EB', icon: 'Settings',
       sub: 'Implementation Effort',
       tiers: [
-        { score: '9-10', desc: '>12 months, major platform changes, high complexity, large team' },
-        { score: '7-8', desc: '6–12 months, significant technical challenges, multiple dependencies' },
-        { score: '5-6', desc: '3–6 months, moderate complexity, some dependencies' },
-        { score: '3-4', desc: '1–3 months, low complexity, minimal dependencies' },
-        { score: '1-2', desc: '<1 month, simple implementation, no dependencies' },
+        { score: '9-10', desc: '>12 months; high complexity; large team', full: '>12 months, major platform changes, high complexity, large team' },
+        { score: '7-8',  desc: '6–12 months; multiple dependencies', full: '6–12 months, significant technical challenges, multiple dependencies' },
+        { score: '5-6',  desc: '3–6 months; moderate complexity', full: '3–6 months, moderate complexity, some dependencies' },
+        { score: '3-4',  desc: '1–3 months; low complexity', full: '1–3 months, low complexity, minimal dependencies' },
+        { score: '1-2',  desc: '<1 month; simple implementation', full: '<1 month, simple implementation, no dependencies' },
       ]
     },
   ];
@@ -86,9 +86,9 @@ export default function WSJFScoringFactors() {
                 <div style={{fontSize:'0.68rem',color:'#9CA3AF',textAlign:'center',marginBottom:'0.1rem'}}>{(f as any).sub}</div>
                 <div style={{width:'100%'}}>
                   {f.tiers.map((t, ti) => (
-                    <div key={ti} style={{display:'flex',gap:'0.3rem',alignItems:'flex-start',marginBottom:'0.2rem',fontSize:'0.7rem'}}>
+                    <div key={ti} title={(t as any).full} style={{display:'flex',gap:'0.3rem',alignItems:'flex-start',marginBottom:'0.2rem',fontSize:'0.7rem',cursor:'help'}}>
                       <span style={{background:`${f.color}15`,color:f.color,padding:'0.05rem 0.3rem',borderRadius:3,fontWeight:700,flexShrink:0,whiteSpace:'nowrap'}}>{t.score}</span>
-                      <span style={{color:'#6B7280',lineHeight:1.35}}>{t.desc}</span>
+                      <span style={{color:'#6B7280',lineHeight:1.35,borderBottom:'1px dotted #D1D5DB'}}>{t.desc}</span>
                     </div>
                   ))}
                 </div>
