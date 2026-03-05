@@ -100,7 +100,7 @@ export default function ValueComplexityMatrix() {
   return (
     <ScrollReveal>
       <div className="my-8">
-        <div style={{ background: 'white', borderRadius: 10, border: '1px solid #E5E7EB', padding: '1.25rem' }}>
+        <div style={{ background: 'white', borderRadius: 10, border: '1px solid #E5E7EB', padding: '1.25rem', maxWidth: 'fit-content', marginLeft: 'auto', marginRight: 'auto' }}>
           {/* Caption */}
           <div style={{ fontSize: '0.7rem', color: '#6366F1', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '0.15rem' }}>
             Metro Cable Example
@@ -175,34 +175,36 @@ export default function ValueComplexityMatrix() {
               })}
             </svg>
 
-            {/* Right panel: quadrant legend + opportunity list */}
-            <div style={{ minWidth: 200, flex: '0 0 auto', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            {/* Right panel: two columns side-by-side */}
+            <div style={{ flex: '0 0 auto', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
               {/* Quadrant descriptions */}
-              <div>
+              <div style={{ width: 150 }}>
+                <div style={{ fontWeight: 700, fontSize: '0.76rem', color: '#1E1B4B', marginBottom: '0.35rem' }}>Quadrants</div>
                 {quadrantDefs.map(q => {
                   const s = quadrantStyles[q.id];
                   return (
-                    <div key={q.id} style={{ display: 'flex', gap: '0.45rem', alignItems: 'flex-start', marginBottom: '0.55rem' }}>
-                      <div style={{ width: 11, height: 11, borderRadius: 2, background: s.fill, border: `1.5px solid ${s.border}`, flexShrink: 0, marginTop: 2 }} />
+                    <div key={q.id} style={{ display: 'flex', gap: '0.4rem', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                      <div style={{ width: 10, height: 10, borderRadius: 2, background: s.fill, border: `1.5px solid ${s.border}`, flexShrink: 0, marginTop: 2 }} />
                       <div>
-                        <div style={{ fontWeight: 700, fontSize: '0.75rem', color: s.text, lineHeight: 1.2 }}>{q.label}</div>
-                        <div style={{ fontSize: '0.69rem', color: '#6B7280', lineHeight: 1.35 }}>{q.desc}</div>
+                        <div style={{ fontWeight: 700, fontSize: '0.72rem', color: s.text, lineHeight: 1.2 }}>{q.label}</div>
+                        <div style={{ fontSize: '0.67rem', color: '#6B7280', lineHeight: 1.35 }}>{q.desc}</div>
                       </div>
                     </div>
                   );
                 })}
               </div>
 
+              {/* Divider */}
+              <div style={{ width: 1, background: '#E5E7EB', alignSelf: 'stretch' }} />
+
               {/* Opportunity list */}
-              <div style={{ borderTop: '1px solid #E5E7EB', paddingTop: '0.6rem' }}>
-                <div style={{ fontWeight: 700, fontSize: '0.76rem', color: '#1E1B4B', marginBottom: '0.35rem' }}>
-                  Opportunities
-                </div>
+              <div style={{ width: 150 }}>
+                <div style={{ fontWeight: 700, fontSize: '0.76rem', color: '#1E1B4B', marginBottom: '0.35rem' }}>Opportunities</div>
                 {opps.map(o => {
                   const qid = getQuadrant(o.x, o.y);
                   return (
-                    <div key={o.id} style={{ display: 'flex', gap: '0.3rem', alignItems: 'flex-start', marginBottom: '0.22rem', fontSize: '0.73rem', color: '#374151', lineHeight: 1.35 }}>
-                      <span style={{ background: dotColor[qid], color: 'white', borderRadius: '50%', width: 16, height: 16, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.57rem', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>
+                    <div key={o.id} style={{ display: 'flex', gap: '0.3rem', alignItems: 'flex-start', marginBottom: '0.22rem', fontSize: '0.7rem', color: '#374151', lineHeight: 1.35 }}>
+                      <span style={{ background: dotColor[qid], color: 'white', borderRadius: '50%', width: 15, height: 15, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.55rem', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>
                         {o.id}
                       </span>
                       {o.name}
