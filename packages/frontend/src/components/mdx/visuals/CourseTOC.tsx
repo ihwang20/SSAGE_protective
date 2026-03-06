@@ -39,7 +39,7 @@ const sections = [
   {
     num: '06',
     title: 'Playbook Summary & Next Steps',
-    lessons: 2,
+    lessons: 1,
     description: 'Key takeaways and preparing to apply the methodology in practice',
     color: '#374151',
   },
