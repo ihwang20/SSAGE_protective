@@ -293,7 +293,7 @@ export default function Sidebar({ open, collapsed, onClose, onCollapseToggle }: 
                   navTree.modules.map((mod) => {
                     const isExpanded = expandedModules.has(mod.slug);
                     return (
-                      <div key={mod.slug} className="mt-2 first:mt-1">
+                      <div key={mod.slug} className="mt-2">
                         {/* Module number badge — click to toggle */}
                         <button
                           onClick={() => toggleModule(mod.slug)}
