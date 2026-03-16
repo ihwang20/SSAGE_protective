@@ -370,7 +370,7 @@ export default function Sidebar({ open, collapsed, onClose, onCollapseToggle }: 
                   </div>
                 ) : navTree ? (
                   <>
-                    <p className="px-4 pt-3 pb-1 text-xs font-bold uppercase tracking-widest text-slate-400">
+                    <p className="px-4 pt-3 pb-0 text-xs font-bold uppercase tracking-widest text-slate-400">
                       Modules
                     </p>
                     {navTree.modules.map((mod) => {
@@ -382,19 +382,19 @@ export default function Sidebar({ open, collapsed, onClose, onCollapseToggle }: 
                             onClick={() => toggleModule(mod.slug)}
                             className="w-full flex items-center justify-between px-4 py-2 mt-1 text-left hover:bg-indigo-50/50 rounded-md transition-colors"
                           >
-                            <div className="min-w-0 flex-1 flex items-center gap-2">
+                            <div className="min-w-0 flex-1">
                               <p className="text-sm font-semibold truncate">
                                 <span className="text-purple-600">{mod.order}.</span>{' '}
                                 <span className="text-slate-800">{mod.title}</span>
                               </p>
-                              {mod.status === 'completed' && (
-                                <CheckCircle2 size={12} className="text-success flex-shrink-0" />
-                              )}
-                              {mod.status === 'in_progress' && (
-                                <Disc size={12} className="text-primary flex-shrink-0" />
-                              )}
                             </div>
                             <div className="flex-shrink-0 flex items-center gap-1.5 ml-2">
+                              {mod.status === 'completed' && (
+                                <CheckCircle2 size={12} className="text-success" />
+                              )}
+                              {mod.status === 'in_progress' && (
+                                <Disc size={12} className="text-primary" />
+                              )}
                               {isExpanded ? (
                                 <ChevronDown size={16} className="text-primary/40" />
                               ) : (
