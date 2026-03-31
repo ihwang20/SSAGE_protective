@@ -57,13 +57,11 @@ function hashString(str: string): number {
   return Math.abs(hash % 1000) / 1000;
 }
 
-/** Generate a unique gradient based on course slug */
+/** Generate a unique gradient based on course slug using theme primary color */
 function courseGradient(slug: string): string {
   const h = hashString(slug);
-  const hue1 = Math.round(210 + h * 15);        // 210-225 (navy-blue)
-  const hue2 = Math.round(220 + h * 15);        // 220-235 (blue)
   const angle = Math.round(115 + h * 50);
-  return `linear-gradient(${angle}deg, hsl(${hue1}, 100%, 25%) 0%, hsl(${hue2}, 80%, 40%) 100%)`;
+  return `linear-gradient(${angle}deg, var(--color-primary) 0%, var(--color-secondary) 100%)`;
 }
 
 /** Extract initials from a name string */
