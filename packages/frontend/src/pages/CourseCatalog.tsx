@@ -530,8 +530,8 @@ export default function CourseCatalog() {
           </button>
           <div className="hidden sm:block shrink-0">
             <img
-              src="/assets/Protective_Life_logo.svg.png"
-              alt={theme?.organization_name || 'Protective Life'}
+              src="/assets/ssa-header-logo.jpg"
+              alt={theme?.organization_name || 'SSA & Company'}
               className="h-8"
             />
           </div>
