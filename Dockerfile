@@ -38,7 +38,10 @@ COPY --from=builder /app/packages/frontend/dist ./packages/frontend/dist
 
 # Copy workspace root
 COPY --from=builder /app/package.json ./
+
+# Copy shared package (package.json + compiled dist — required by backend imports)
 COPY --from=builder /app/packages/shared/package.json ./packages/shared/
+COPY --from=builder /app/packages/shared/dist ./packages/shared/dist
 
 # Install production dependencies only
 RUN npm install --omit=dev --workspace=packages/backend
