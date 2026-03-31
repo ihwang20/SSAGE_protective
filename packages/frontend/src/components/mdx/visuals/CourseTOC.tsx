@@ -13,7 +13,7 @@ const sections = [
     title: 'AI-Empowered Problem Solving',
     lessons: 18,
     description: 'Problem statements, issues trees, data analysis, opportunity synthesis, and prioritization',
-    color: '#4F46E5',
+    color: '#003399',
   },
   {
     num: '03',

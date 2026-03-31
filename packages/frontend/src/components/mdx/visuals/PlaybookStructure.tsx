@@ -5,7 +5,7 @@ export default function PlaybookStructure() {
     {
       title: 'Section I',
       sub: 'Practitioners Guidebook',
-      color: '#4F46E5',
+      color: '#003399',
       chapters: [
         {
           name: 'Chapter I: AI-Empowered Problem Solving',
