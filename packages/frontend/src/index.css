@@ -4,12 +4,12 @@
 
 /* Default theme CSS variables (overridden by ThemeContext) */
 :root {
-  /* Colors - Default (SSA) theme */
-  --color-primary: #003399;
-  --color-primary-light: #E6EEFF;
-  --color-primary-hover: #002277;
-  --color-secondary: #5B8DEF;
-  --color-accent: #003399;
+  /* Colors - Default (Protective Life) theme */
+  --color-primary: #4C12A1;
+  --color-primary-light: #EDE9F8;
+  --color-primary-hover: #3A0E7A;
+  --color-secondary: #7C4DC4;
+  --color-accent: #4C12A1;
   --color-background: #FFFFFF;
   --color-surface: #F8F9FA;
   --color-success: #22C55E;
@@ -18,7 +18,7 @@
   --color-text-primary: #1A1A2E;
   --color-text-secondary: #6B7280;
   --color-border: #E5E7EB;
-  --color-link: #003399;
+  --color-link: #4C12A1;
 
   /* Typography */
   --font-heading: 'Inter', system-ui, -apple-system, sans-serif;

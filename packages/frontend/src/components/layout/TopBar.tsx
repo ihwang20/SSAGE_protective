@@ -54,8 +54,8 @@ export default function TopBar({ onMobileMenuToggle }: TopBarProps) {
 
         <div className="hidden sm:block shrink-0">
           <img
-            src="/assets/ssa-header-logo.jpg"
-            alt="SSA & Company"
+            src="/assets/Protective_Life_logo.svg.png"
+            alt={theme?.organization_name || 'Protective Life'}
             className="h-8"
           />
         </div>
