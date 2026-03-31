@@ -67,8 +67,8 @@ export default function LoginPage() {
       {/* Header — matches CourseCatalog */}
       <header className="sticky top-0 z-40 bg-white/60 backdrop-blur-xl border-b border-white/50 shadow-elevation-1 px-6 h-14 flex items-center justify-center">
         <img
-          src="/assets/Protective_Life_logo.svg.png"
-          alt={theme?.organization_name || 'Protective Life'}
+          src="/assets/ssa-header-logo.jpg"
+          alt={theme?.organization_name || 'SSA & Company'}
           className="h-7"
         />
       </header>

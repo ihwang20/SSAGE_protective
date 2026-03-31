@@ -1,0 +1,9 @@
+node_modules
+packages/*/node_modules
+packages/*/dist
+.env
+.env.local
+*.log
+.git
+.gitignore
+docs
