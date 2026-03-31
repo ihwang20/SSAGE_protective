@@ -60,10 +60,10 @@ function hashString(str: string): number {
 /** Generate a unique gradient based on course slug */
 function courseGradient(slug: string): string {
   const h = hashString(slug);
-  const hue1 = Math.round(220 + h * 30);        // 220-250 (blue-indigo)
-  const hue2 = Math.round(260 + h * 40);        // 260-300 (purple-magenta)
+  const hue1 = Math.round(210 + h * 15);        // 210-225 (navy-blue)
+  const hue2 = Math.round(220 + h * 15);        // 220-235 (blue)
   const angle = Math.round(115 + h * 50);
-  return `linear-gradient(${angle}deg, hsl(${hue1}, 75%, 58%) 0%, hsl(${hue2}, 60%, 48%) 100%)`;
+  return `linear-gradient(${angle}deg, hsl(${hue1}, 100%, 25%) 0%, hsl(${hue2}, 80%, 40%) 100%)`;
 }
 
 /** Extract initials from a name string */
