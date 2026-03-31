@@ -5,6 +5,7 @@ const { Pool } = pg;
 
 export const pool = new Pool({
   connectionString: config.databaseUrl,
+  ssl: config.nodeEnv === 'production' ? { rejectUnauthorized: false } : false,
 });
 
 export async function testConnection(): Promise<boolean> {
