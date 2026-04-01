@@ -165,7 +165,7 @@ export default function LessonPage() {
       {/* Mini-hero header */}
       {meta && (
         <section className="relative overflow-hidden">
-          <GradientMesh className="opacity-40" />
+          <GradientMesh />
           <div className="relative max-w-3xl mx-auto px-6 sm:px-12 pt-8 pb-6">
             {/* Module & progress context */}
             <div className="flex items-center justify-between mb-3">
