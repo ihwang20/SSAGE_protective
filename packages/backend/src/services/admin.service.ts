@@ -548,16 +548,43 @@ export async function exportUsersCSV(courseSlug?: string): Promise<string> {
 
   if (userIds.length === 0) return '"Name","Email","Role","Status","Overall % Completion","Total Time (min)","Enrolled","Last Active"';
 
-  const cpResult = await pool.query(
-    `SELECT user_id, course_slug, status, total_time_seconds, completed_at
-     FROM course_progress WHERE user_id = ANY($1::uuid[])`,
-    [userIds]
-  );
+  const [cpResult, lpCountResult] = await Promise.all([
+    pool.query(
+      `SELECT user_id, course_slug, status, total_time_seconds, completed_at
+       FROM course_progress WHERE user_id = ANY($1::uuid[])`,
+      [userIds]
+    ),
+    pool.query(
+      `SELECT user_id, course_slug, COUNT(*) FILTER (WHERE status = 'completed')::int as completed
+       FROM lesson_progress WHERE user_id = ANY($1::uuid[])
+       GROUP BY user_id, course_slug`,
+      [userIds]
+    ),
+  ]);
+
   const cpMap = new Map<string, any[]>();
   for (const cp of cpResult.rows) {
     const list = cpMap.get(cp.user_id) || [];
     list.push(cp);
     cpMap.set(cp.user_id, list);
+  }
+
+  // completed lesson counts per user per course (for Overall % Completion)
+  const lpCountMap = new Map<string, Map<string, number>>();
+  for (const row of lpCountResult.rows) {
+    if (!lpCountMap.has(row.user_id)) lpCountMap.set(row.user_id, new Map());
+    lpCountMap.get(row.user_id)!.set(row.course_slug, row.completed);
+  }
+
+  // total lesson count per course from nav tree
+  const courseTotalLessons = new Map<string, number>();
+  const slugsToCheck = new Set<string>(lpCountResult.rows.map((r: any) => r.course_slug));
+  if (courseSlug) slugsToCheck.add(courseSlug);
+  for (const slug of slugsToCheck) {
+    const navTree = getCourseNavTree(slug);
+    if (navTree) {
+      courseTotalLessons.set(slug, navTree.modules.reduce((sum: number, m: any) => sum + m.lessons.length, 0));
+    }
   }
 
   // If a course is specified, get its nav tree for per-module columns
@@ -632,13 +659,12 @@ export async function exportUsersCSV(courseSlug?: string): Promise<string> {
     const userLp = lpMap.get(u.id) || {};
     const userKc = kcMap.get(u.id) || {};
 
-    let overallPct = '';
-    if (courseSlug && modules.length > 0) {
-      const pct = modules.reduce((sum, m) => {
-        const completed = Math.min((userLp[m.slug]?.completed || 0), m.lessonCount);
-        return sum + (m.lessonCount > 0 ? (completed / m.lessonCount) * 100 : 0);
-      }, 0) / modules.length;
-      overallPct = String(Math.round(pct));
+    const targetSlug = courseSlug || (cpMap.get(u.id) || [])[0]?.course_slug;
+    let overallPct = '0';
+    if (targetSlug) {
+      const completedLessons = lpCountMap.get(u.id)?.get(targetSlug) || 0;
+      const totalLessons = courseTotalLessons.get(targetSlug) || 0;
+      overallPct = totalLessons > 0 ? String(Math.round((completedLessons / totalLessons) * 100)) : '0';
     }
 
     const baseCols = [
