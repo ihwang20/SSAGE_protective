@@ -660,11 +660,11 @@ export async function exportUsersCSV(courseSlug?: string): Promise<string> {
     const userKc = kcMap.get(u.id) || {};
 
     const targetSlug = courseSlug || (cpMap.get(u.id) || [])[0]?.course_slug;
-    let overallPct = '0';
+    let overallPct = '0%';
     if (targetSlug) {
       const completedLessons = lpCountMap.get(u.id)?.get(targetSlug) || 0;
       const totalLessons = courseTotalLessons.get(targetSlug) || 0;
-      overallPct = totalLessons > 0 ? String(Math.round((completedLessons / totalLessons) * 100)) : '0';
+      overallPct = totalLessons > 0 ? `${Math.round((completedLessons / totalLessons) * 100)}%` : '0%';
     }
 
     const baseCols = [
