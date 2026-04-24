@@ -546,7 +546,7 @@ export async function exportUsersCSV(courseSlug?: string): Promise<string> {
   const usersResult = await pool.query('SELECT * FROM users ORDER BY created_at DESC');
   const userIds = usersResult.rows.map((r: any) => r.id);
 
-  if (userIds.length === 0) return '"Name","Email","Role","Status","Total Time (min)","Enrolled","Last Active"';
+  if (userIds.length === 0) return '"Name","Email","Role","Status","Overall % Completion","Total Time (min)","Enrolled","Last Active"';
 
   const cpResult = await pool.query(
     `SELECT user_id, course_slug, status, total_time_seconds, completed_at
@@ -610,7 +610,7 @@ export async function exportUsersCSV(courseSlug?: string): Promise<string> {
   }
 
   // Build header
-  const baseHeaders = ['Name', 'Email', 'Role', 'Status', 'Total Time (min)', 'Enrolled', 'Last Active'];
+  const baseHeaders = ['Name', 'Email', 'Role', 'Status', 'Overall % Completion', 'Total Time (min)', 'Enrolled', 'Last Active'];
   const moduleHeaders = modules.flatMap((m) => [
     `${m.title} - Status`,
     `${m.title} - Lessons Completed`,
@@ -629,11 +629,24 @@ export async function exportUsersCSV(courseSlug?: string): Promise<string> {
     const status = cp?.status || 'not_started';
     const totalTime = Math.round((cp?.total_time_seconds || 0) / 60);
 
+    const userLp = lpMap.get(u.id) || {};
+    const userKc = kcMap.get(u.id) || {};
+
+    let overallPct = '';
+    if (courseSlug && modules.length > 0) {
+      const pct = modules.reduce((sum, m) => {
+        const completed = Math.min((userLp[m.slug]?.completed || 0), m.lessonCount);
+        return sum + (m.lessonCount > 0 ? (completed / m.lessonCount) * 100 : 0);
+      }, 0) / modules.length;
+      overallPct = String(Math.round(pct));
+    }
+
     const baseCols = [
       u.name,
       u.email,
       u.role,
       status,
+      overallPct,
       String(totalTime),
       u.created_at?.toISOString() || '',
       u.last_active_at?.toISOString() || '',
@@ -641,8 +654,6 @@ export async function exportUsersCSV(courseSlug?: string): Promise<string> {
 
     let moduleCols: string[] = [];
     if (courseSlug && modules.length > 0) {
-      const userLp = lpMap.get(u.id) || {};
-      const userKc = kcMap.get(u.id) || {};
 
       moduleCols = modules.flatMap((m) => {
         const lp = userLp[m.slug];
